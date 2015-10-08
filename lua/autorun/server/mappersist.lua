@@ -2,14 +2,14 @@ local function ServerPrint(Message)
 	print("[Map Persister] " .. Message)
 end
 
-if(game.IsDedicated()) then //CHANGE THIS WHEN FINISHED
+if(game.IsDedicated()) then -- CHANGE THIS WHEN FINISHED
 
 	ServerPrint("Loaded.")
 	 
 	local Dir = "map_persist"
 	local FileDir = Dir.."/settings.txt"
 	
-	//Check if settings file exists, if not, create one.
+	-- Check if settings file exists, if not, create one.
 	if(!file.Exists(FileDir,"DATA"))then
 	
 		local Defaults = {safeshutdown = 1, lastmap = game.GetMap()}
@@ -21,7 +21,7 @@ if(game.IsDedicated()) then //CHANGE THIS WHEN FINISHED
 		
 	end
 	
-	//File read and writes
+	-- File read and writes
 	local function getSettings()
 		return util.JSONToTable(file.Read(FileDir,"DATA"))
 	end
@@ -29,8 +29,8 @@ if(game.IsDedicated()) then //CHANGE THIS WHEN FINISHED
 		file.Write(FileDir, util.TableToJSON(Table, false))
 	end
 	
-	//Init
-	//hook.Add( "Initialize", "mappersistinit", function()
+	-- Init
+	-- hook.Add( "Initialize", "mappersistinit", function()
 		local Settings = getSettings()
 		local SafeShut = Settings["safeshutdown"]
 		local LastMap = Settings["lastmap"]
@@ -60,12 +60,12 @@ if(game.IsDedicated()) then //CHANGE THIS WHEN FINISHED
 			end
 		end
 		
-		//Save settings
+		-- Save settings
 		Settings["safeshutdown"] = SafeShut
 		Settings["lastmap"] = LastMap
 		setSettings(Settings)
 	
-	//end)
+	-- end)
 	
 	hook.Add( "ShutDown", "shafeshutmappersist", function()
 		ServerPrint("Safe shutdown detected.")
